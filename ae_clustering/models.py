@@ -72,6 +72,19 @@ class Autoencoder(torch.nn.Module):
         self.criterion = torch.nn.BCELoss().to(self.model_device)
 
     def forward(self, features):
+        """
+        Defines the forward pass by the model.
+
+        Parameter
+        ---------
+        features : torch.Tensor
+            The input features.
+
+        Returns
+        -------
+        reconstruction : torch.Tensor
+            The model output.
+        """
         activations = {}
         for index, encoder_layer in enumerate(self.encoder_layers):
             if index == 0:
