@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Implementation of autoencoder and clustering models"""
+from sklearn.cluster import KMeans
 import torch
 
 __author__ = "Abien Fred Agarap"
@@ -151,8 +152,25 @@ class Autoencoder(torch.nn.Module):
 
 
 class Clustering(object):
-    def __init__(self, **kwargs):
-        pass
+    def __init__(
+        self,
+        num_clusters: int,
+        n_init: int = 10,
+        epochs: int = 300,
+        cores: int = 1,
+        seed: int = None,
+        tol: float = 1e-4,
+        initialization: str = "random",
+    ):
+        self.model = KMeans(
+            init=initialization,
+            n_clusters=num_clusters,
+            n_init=n_init,
+            max_iter=epochs,
+            n_jobs=cores,
+            random_state=seed,
+            tol=tol,
+        )
 
     def train(self, **kwargs):
         pass
