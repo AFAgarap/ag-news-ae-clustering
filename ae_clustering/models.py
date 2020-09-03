@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Implementation of autoencoder and clustering models"""
+import numpy as np
 from sklearn.cluster import KMeans
 import torch
 
@@ -195,8 +196,16 @@ class Clustering(object):
             tol=tol,
         )
 
-    def train(self, **kwargs):
-        pass
+    def train(self, features: np.ndarray) -> None:
+        """
+        Fit the dataset features.
+
+        Parameter
+        ---------
+        features : np.ndarray
+            The training instances to cluster.
+        """
+        self.model.fit(features)
 
     def predict(self, **kwargs):
         pass
