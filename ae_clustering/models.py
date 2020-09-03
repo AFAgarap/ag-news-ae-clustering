@@ -105,6 +105,21 @@ class Autoencoder(torch.nn.Module):
         pass
 
     def epoch_train(self, model: torch.nn.Module, data_loader: object) -> float:
+        """
+        Trains a model for one epoch.
+
+        Parameters
+        ----------
+        model : torch.nn.Module
+            The model to train.
+        data_loader : torch.utils.dataloader.DataLoader
+            The data loader object that consists of the data pipeline.
+
+        Returns
+        -------
+        epoch_loss : float
+            The epoch loss.
+        """
         epoch_loss = 0
         for batch_features, _ in data_loader:
             batch_features = batch_features.view(batch_features.shape[0], -1)
