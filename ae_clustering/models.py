@@ -148,3 +148,17 @@ class Autoencoder(torch.nn.Module):
             epoch_loss += train_loss.item()
         epoch_loss /= len(data_loader)
         return epoch_loss
+
+
+class Clustering(object):
+    def __init__(self, **kwargs):
+        pass
+
+    def train(self, **kwargs):
+        pass
+
+    def predict(self, **kwargs):
+        pass
+
+    def benchmark(self, **kwargs):
+        pass
