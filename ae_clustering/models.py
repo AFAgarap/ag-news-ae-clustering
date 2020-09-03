@@ -77,12 +77,12 @@ class Autoencoder(torch.nn.Module):
 
         Parameter
         ---------
-        features : torch.Tensor
+        features: torch.Tensor
             The input features.
 
         Returns
         -------
-        reconstruction : torch.Tensor
+        reconstruction: torch.Tensor
             The model output.
         """
         activations = {}
@@ -101,7 +101,17 @@ class Autoencoder(torch.nn.Module):
         reconstruction = activations[len(activations) - 1]
         return reconstruction
 
-    def fit(self, data_loader, epochs):
+    def fit(self, data_loader: object, epochs: int) -> None:
+        """
+        Trains the autoencoder model.
+
+        Parameters
+        ----------
+        data_loader: torch.utils.dataloader.DataLoader
+            The data loader object that consists of the data pipeline.
+        epochs: int
+            The number of epochs to train the model.
+        """
         self.to(self.model_device)
         for epoch in range(epochs):
             epoch_loss = self.epoch_train(self, data_loader)
@@ -116,14 +126,14 @@ class Autoencoder(torch.nn.Module):
 
         Parameters
         ----------
-        model : torch.nn.Module
+        model: torch.nn.Module
             The model to train.
-        data_loader : torch.utils.dataloader.DataLoader
+        data_loader: torch.utils.dataloader.DataLoader
             The data loader object that consists of the data pipeline.
 
         Returns
         -------
-        epoch_loss : float
+        epoch_loss: float
             The epoch loss.
         """
         epoch_loss = 0
