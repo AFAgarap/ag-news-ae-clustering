@@ -18,6 +18,7 @@ from typing import Dict, Tuple
 
 import nltk
 import numpy as np
+from scipy.optimize import linear_sum_assignment
 from sklearn.feature_extraction.text import TfidfVectorizer
 import torch
 
@@ -136,3 +137,18 @@ def create_dataloader(
         dataset=dataset, batch_size=batch_size, num_workers=num_workers, pin_memory=True
     )
     return data_loader
+
+
+def clustering_accuracy(target: np.ndarray, prediction: np.ndarray) -> float:
+    target = target.astype(np.int64)
+    assert target.size == prediction.size
+    D = max(prediction.max(), target.max()) + 1
+    w = np.zeros((D, D), dtype=np.int64)
+    for index in range(prediction.size):
+        w[prediction[index], target[index]] += 1
+
+    indices = linear_sum_assignment(w.max() - w)
+    indices = np.asarray(indices)
+    indices = np.transpose(indices)
+
+    return sum([w[i, j] for i, j in indices]) * 1.0 / prediction.size
