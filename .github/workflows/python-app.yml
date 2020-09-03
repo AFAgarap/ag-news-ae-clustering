@@ -28,6 +28,7 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel
           pip install flake8 pytest
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          bash setup/download_ag_news
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
