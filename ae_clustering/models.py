@@ -20,8 +20,42 @@ __author__ = "Abien Fred Agarap"
 
 
 class Autoencoder(torch.nn.Module):
-    def __init__(self):
-        pass
+    def __init__(
+        self,
+        model_device: torch.device = torch.device("cpu"),
+        input_shape: int = 784,
+        code_dim: int = 128,
+        learning_rate: float = 1e-4,
+    ):
+        super().__init__()
+        self.model_device = model_device
+        self.encoder_layers = torch.nn.ModuleList(
+            [
+                torch.nn.Linear(in_features=input_shape, out_features=500),
+                torch.nn.ReLU(),
+                torch.nn.Linear(in_features=500, out_features=500),
+                torch.nn.ReLU(),
+                torch.nn.Linear(in_features=500, out_features=2000),
+                torch.nn.ReLU(),
+                torch.nn.Linear(in_features=2000, out_features=code_dim),
+                torch.nn.Sigmoid(),
+            ]
+        )
+        self.decoder_layers = torch.nn.ModuleList(
+            [
+                torch.nn.Linear(in_features=code_dim, out_features=2000),
+                torch.nn.ReLU(),
+                torch.nn.Linear(in_features=2000, out_features=500),
+                torch.nn.ReLU(),
+                torch.nn.Linear(in_features=500, out_features=500),
+                torch.nn.ReLU(),
+                torch.nn.Linear(in_features=500, out_features=input_shape),
+                torch.nn.Sigmoid(),
+            ]
+        )
+        self.train_loss = []
+        self.optimizer = torch.optim.Adam(params=self.parameters(), lr=learning_rate)
+        self.criterion = torch.nn.BCELoss().to(self.model_device)
 
     def forward(self, **kwargs):
         pass
