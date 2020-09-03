@@ -3,6 +3,7 @@ from typing import Dict, Tuple
 import nltk
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
+import torch
 
 
 def read_data(corpus_file: str, label_column: int, document_start: int) -> Dict:
@@ -86,3 +87,15 @@ def load_dataset(
     vectors = vectors.astype(np.float32)
     labels = np.array(list(labels), dtype=np.float32)
     return (vectors, labels, vectorizer)
+
+
+def create_dataloader(
+    features: np.ndarray, labels: np.ndarray, batch_size: int = 64, num_workers: int = 0
+):
+    features = torch.from_numpy(features)
+    labels = torch.from_numpy(labels)
+    dataset = torch.utils.data.TensorDataset(features, labels)
+    data_loader = torch.utils.data.DataLoader(
+        dataset=dataset, batch_size=batch_size, num_workers=num_workers, pin_memory=True
+    )
+    return data_loader
