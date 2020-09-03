@@ -91,7 +91,26 @@ def load_dataset(
 
 def create_dataloader(
     features: np.ndarray, labels: np.ndarray, batch_size: int = 64, num_workers: int = 0
-):
+) -> object:
+    """
+    Returns the data loader object for the dataset.
+
+    Parameters
+    ----------
+    features: np.ndarray
+        The dataset features in tensor representation.
+    labels: np.ndarray
+        The dataset labels in tensor representation.
+    batch_size: int
+        The mini-batch size to use for loading features and labels.
+    num_workers: int
+        The number of subprocesses to use for data.
+
+    Returns
+    -------
+    data_loader: torch.utils.data.DataLoader
+        The data loader object, ready for a PyTorch model use.
+    """
     features = torch.from_numpy(features)
     labels = torch.from_numpy(labels)
     dataset = torch.utils.data.TensorDataset(features, labels)
