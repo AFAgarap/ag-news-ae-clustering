@@ -1,4 +1,8 @@
-from typing import Dict
+from typing import Dict, Tuple
+
+import nltk
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def read_data(corpus_file: str, label_column: int, document_start: int) -> Dict:
@@ -28,3 +32,33 @@ def read_data(corpus_file: str, label_column: int, document_start: int) -> Dict:
             label = int(columns[label_column].strip("__label__"))
             dataset[text] = label
     return dataset
+
+
+def load_dataset(dataset: str, label_column: int = 0, doc_start: int = 2) -> Tuple:
+    dataset = read_data(
+        corpus_file=dataset, label_column=label_column, doc_start=doc_start
+    )
+    texts = dataset.keys()
+    labels = dataset.values()
+    texts = list(map(lambda text: text.replace("[^a-zA-Z#]", ""), texts))
+    texts = list(
+        map(
+            lambda text: " ".join([word for word in text.split() if len(word) > 3]),
+            texts,
+        )
+    )
+    texts = list(map(lambda text: text.lower(), texts))
+    texts = list(map(lambda text: text.split(), texts))
+    en_stopwords = nltk.corpus.stopwords.words("english")
+    texts = list(
+        map(lambda text: [word for word in text if word not in en_stopwords], texts)
+    )
+    texts = list(map(lambda text: " ".join(text), texts))
+    vectorizer = TfidfVectorizer(
+        max_features=2000, sublinear_tf=True, max_df=0.5, smooth_idf=True
+    )
+    vectors = vectorizer.fit_transform(texts)
+    vectors = vectors.toarray()
+    vectors = vectors.astype(np.float32)
+    labels = np.array(list(labels), dtype=np.float32)
+    return (vectors, labels, vectorizer)
