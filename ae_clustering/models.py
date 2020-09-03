@@ -162,6 +162,29 @@ class Clustering(object):
         tol: float = 1e-4,
         initialization: str = "random",
     ):
+        """
+        k-Means Clustering
+
+        Parameters
+        ----------
+        num_clusters: int
+            The number of clusters to form.
+        n_init: int, optional, default: 10
+            The number of times k-Means will be run
+            with varying centroid seeds.
+        epochs: int, optional, default: 300
+            The maximum number of iterations
+            k-Means will be run.
+        cores: int, optional, default: 1
+            The number of jobs to use for computing.
+        seed: int, optional, default: None
+            The random number generator seed.
+            Set for reproducibility.
+        tol: float, optional, default: 1e-4
+            The tolerance with regards to inertia.
+        initialization: str, optional, default: random
+            The method for initialization.
+        """
         self.model = KMeans(
             init=initialization,
             n_clusters=num_clusters,
