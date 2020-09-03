@@ -276,7 +276,7 @@ class Clustering(object):
         )
         results["ch_score"] = calinski_harabasz_score(features, predictions)
         results["clustering_accuracy"] = clustering_accuracy(
-            y_true=labels, y_pred=predictions
+            target=labels, prediction=predictions
         )
 
         return (
