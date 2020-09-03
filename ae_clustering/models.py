@@ -14,9 +14,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Implementation of autoencoder and clustering models"""
+import time
+from typing import Dict, Tuple
+
 import numpy as np
 from sklearn.cluster import KMeans
+from sklearn.metrics import adjusted_rand_score as ari
+from sklearn.metrics import calinski_harabasz_score
+from sklearn.metrics import davies_bouldin_score
+from sklearn.metrics import normalized_mutual_info_score as nmi
+from sklearn.metrics import silhouette_score
 import torch
+
+from ae_clustering.utils import clustering_accuracy
+
 
 __author__ = "Abien Fred Agarap"
 
@@ -219,5 +230,66 @@ class Clustering(object):
         cluster_predictions = self.model.predict(features)
         return cluster_predictions
 
-    def benchmark(self, **kwargs):
-        pass
+    def benchmark(
+        self, name: str, features: np.ndarray, labels: np.ndarray
+    ) -> Tuple[str, Dict]:
+        """
+        Returns the clustering performance results in str and dict format.
+
+        The metrics used are as follows:
+            1. Duration
+            2. Adjusted RAND Score
+            3. Normalized Mutual Information
+            4. Davies-Bouldin Index
+            5. Silhouette Score
+            6. Calinski-Harabasz Score
+            7. Clustering Accuracy
+
+        Parameters
+        ----------
+        name: str
+            The name of the benchmark.
+        features: np.ndarray
+            The test instances to cluster.
+        labels: np.ndarray
+            The test labels.
+
+        Returns
+        -------
+        str
+            The formatted string of the benchmark results.
+        results: Dict
+            The dictionary of benchmark results.
+        """
+        start_time = time.time()
+        predictions = self.predict(features)
+
+        results = {}
+
+        results["name"] = name
+        results["duration"] = time.time() - start_time
+        results["ari"] = ari(labels_true=labels, labels_pred=predictions)
+        results["nmi"] = nmi(labels_true=labels, labels_pred=predictions)
+        results["dbi"] = davies_bouldin_score(features, predictions)
+        results["silhouette"] = silhouette_score(
+            features, predictions, metric="euclidean"
+        )
+        results["ch_score"] = calinski_harabasz_score(features, predictions)
+        results["clustering_accuracy"] = clustering_accuracy(
+            y_true=labels, y_pred=predictions
+        )
+
+        return (
+            "%-9s\t%.2fs\t%.3f\t\t%.3f\t\t%.3f\t\t%.3f\t\t%.3f\t\t%.3f"
+            % (
+                results.get("name"),
+                results["duration"],
+                results["dbi"],
+                results["silhouette"],
+                results["ch_score"],
+                results["nmi"],
+                results["ari"],
+                results["clustering_accuracy"],
+            ),
+            results,
+        )
