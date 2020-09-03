@@ -71,8 +71,22 @@ class Autoencoder(torch.nn.Module):
         self.optimizer = torch.optim.Adam(params=self.parameters(), lr=learning_rate)
         self.criterion = torch.nn.BCELoss().to(self.model_device)
 
-    def forward(self, **kwargs):
-        pass
+    def forward(self, features):
+        activations = {}
+        for index, encoder_layer in enumerate(self.encoder_layers):
+            if index == 0:
+                activations[index] = encoder_layer(features)
+            else:
+                activations[index] = encoder_layer(activations[index - 1])
+        code = activations[len(activations) - 1]
+        activations = {}
+        for index, decoder_layer in enumerate(self.decoder_layers):
+            if index == 0:
+                activations[index] = decoder_layer(code)
+            else:
+                activations[index] = decoder_layer(activations[index - 1])
+        reconstruction = activations[len(activations) - 1]
+        return reconstruction
 
     def fit(self, **kwargs):
         pass
