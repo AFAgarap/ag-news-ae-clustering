@@ -35,6 +35,28 @@ def read_data(corpus_file: str, label_column: int, document_start: int) -> Dict:
 
 
 def load_dataset(dataset: str, label_column: int = 0, doc_start: int = 2) -> Tuple:
+    """
+    Loads the dataset from file.
+
+    Parameters
+    ----------
+    dataset: str
+        The filename of the dataset to load.
+    label_column: int
+        The column number of the dataset label (zero-indexed).
+    document_start: int
+        The number of columns in the dataset.
+
+    Returns
+    -------
+    vectors: np.ndarray
+        The TF-IDF vector representation of the text data.
+    labels: np.ndarray
+        The labels of the text data.
+    vectorizer: sklearn.feature_extraction.text.TfidfVectorizer
+        The vectorizer object used for computing the
+        vector representation of the text data.
+    """
     dataset = read_data(
         corpus_file=dataset, label_column=label_column, doc_start=doc_start
     )
