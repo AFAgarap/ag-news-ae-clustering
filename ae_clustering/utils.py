@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Utility functions module"""
+import pickle
 from typing import Dict, Tuple
 
 import nltk
@@ -171,3 +172,9 @@ def clustering_accuracy(target: np.ndarray, prediction: np.ndarray) -> float:
     indices = np.transpose(indices)
 
     return sum([w[i, j] for i, j in indices]) * 1.0 / prediction.size
+
+
+def load_vectorizer(filename: str = "data/vectorizer.pk") -> object:
+    with open(filename, "rb") as vectorizer_file:
+        vectorizer = pickle.load(vectorizer_file)
+    return vectorizer
