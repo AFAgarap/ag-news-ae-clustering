@@ -34,7 +34,9 @@ def read_data(corpus_file: str, label_column: int, document_start: int) -> Dict:
     return dataset
 
 
-def load_dataset(dataset: str, label_column: int = 0, doc_start: int = 2) -> Tuple:
+def load_dataset(
+    dataset: str, label_column: int = 0, document_start: int = 2
+) -> Tuple[np.ndarray, np.ndarray, object]:
     """
     Loads the dataset from file.
 
@@ -58,7 +60,7 @@ def load_dataset(dataset: str, label_column: int = 0, doc_start: int = 2) -> Tup
         vector representation of the text data.
     """
     dataset = read_data(
-        corpus_file=dataset, label_column=label_column, doc_start=doc_start
+        corpus_file=dataset, label_column=label_column, document_start=document_start
     )
     texts = dataset.keys()
     labels = dataset.values()
