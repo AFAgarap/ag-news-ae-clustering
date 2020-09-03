@@ -71,7 +71,7 @@ class Autoencoder(torch.nn.Module):
         self.optimizer = torch.optim.Adam(params=self.parameters(), lr=learning_rate)
         self.criterion = torch.nn.BCELoss().to(self.model_device)
 
-    def forward(self, features):
+    def forward(self, features: torch.Tensor) -> torch.Tensor:
         """
         Defines the forward pass by the model.
 
@@ -101,8 +101,14 @@ class Autoencoder(torch.nn.Module):
         reconstruction = activations[len(activations) - 1]
         return reconstruction
 
-    def fit(self, **kwargs):
-        pass
+    def fit(self, data_loader, epochs):
+        self.to(self.model_device)
+        for epoch in range(epochs):
+            epoch_loss = self.epoch_train(self, data_loader)
+            if "cuda" in self.model_device.type:
+                torch.cuda.empty_cache()
+            self.train_loss.append(epoch_loss)
+            print(f"epoch {epoch + 1}/{epochs} : mean loss = {self.train_loss[-1]:.6f}")
 
     def epoch_train(self, model: torch.nn.Module, data_loader: object) -> float:
         """
