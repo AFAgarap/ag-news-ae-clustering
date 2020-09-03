@@ -175,6 +175,19 @@ def clustering_accuracy(target: np.ndarray, prediction: np.ndarray) -> float:
 
 
 def load_vectorizer(filename: str = "data/vectorizer.pk") -> object:
+    """
+    Loads the exported vectorizer from file.
+
+    Parameter
+    ---------
+    filename: str
+        The path to the vectorizer (pickle) file.
+
+    Returns
+    -------
+    vectorizer: sklearn.feature_extraction.text.TfidfVectorizer
+        The exported vectorizer.
+    """
     with open(filename, "rb") as vectorizer_file:
         vectorizer = pickle.load(vectorizer_file)
     return vectorizer
