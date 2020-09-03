@@ -14,6 +14,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Implementation of autoencoder and clustering models"""
-
+import torch
 
 __author__ = "Abien Fred Agarap"
+
+
+class Autoencoder(torch.nn.Module):
+    def __init__(self):
+        pass
+
+    def forward(self, **kwargs):
+        pass
+
+    def fit(self, **kwargs):
+        pass
+
+    def epoch_train(self, **kwargs):
+        pass
