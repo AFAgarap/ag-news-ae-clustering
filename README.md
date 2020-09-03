@@ -1,3 +1,4 @@
 # AG News Clustering with Autoencoder
 
 ![ag-news-ae-clustering](https://github.com/AFAgarap/ag-news-ae-clustering/workflows/ag-news-ae-clustering/badge.svg?branch=master)
+[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-377/)
