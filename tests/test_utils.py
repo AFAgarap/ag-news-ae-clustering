@@ -10,4 +10,8 @@ def test_create_dataloader():
 
 
 def test_load_dataset():
-    pass
+    (train_vectors, train_labels, vectorizer) = load_dataset("data/ag_news.train")
+    assert len(train_vectors.shape) == 2
+    assert train_vectors.shape == (119843, 2000)
+    assert len(train_labels.shape) == 1
+    assert train_labels.shape == (119843,)
