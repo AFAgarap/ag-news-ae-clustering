@@ -207,8 +207,17 @@ class Clustering(object):
         """
         self.model.fit(features)
 
-    def predict(self, **kwargs):
-        pass
+    def predict(self, features: np.ndarray) -> np.ndarray:
+        """
+        Predict the clusters to which the features belongs to.
+
+        Parameter
+        ---------
+        features : np.ndarray
+            The test instances to cluster.
+        """
+        cluster_predictions = self.model.predict(features)
+        return cluster_predictions
 
     def benchmark(self, **kwargs):
         pass
