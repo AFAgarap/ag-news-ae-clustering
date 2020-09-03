@@ -283,13 +283,13 @@ class Clustering(object):
             "%-9s\t%.2fs\t%.3f\t\t%.3f\t\t%.3f\t\t%.3f\t\t%.3f\t\t%.3f"
             % (
                 results.get("name"),
-                results["duration"],
-                results["dbi"],
-                results["silhouette"],
-                results["ch_score"],
-                results["nmi"],
-                results["ari"],
-                results["clustering_accuracy"],
+                results.get("duration"),
+                results.get("dbi"),
+                results.get("silhouette"),
+                results.get("ch_score"),
+                results.get("nmi"),
+                results.get("ari"),
+                results.get("clustering_accuracy"),
             ),
             results,
         )
