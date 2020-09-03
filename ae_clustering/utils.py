@@ -140,6 +140,25 @@ def create_dataloader(
 
 
 def clustering_accuracy(target: np.ndarray, prediction: np.ndarray) -> float:
+    """
+    Returns the clustering accuracy.
+
+    The clustering accuracy metric is based on
+    Guo et al., 2018
+    [http://proceedings.mlr.press/v95/guo18b/guo18b.pdf]
+
+    Parameters
+    ----------
+    target: np.ndarray
+        The set of true labels.
+    prediction: np.ndarray
+        The set of predicted (pseudo) labels / clusters
+
+    Returns
+    -------
+    float
+        The clustering accuracy.
+    """
     target = target.astype(np.int64)
     assert target.size == prediction.size
     D = max(prediction.max(), target.max()) + 1
