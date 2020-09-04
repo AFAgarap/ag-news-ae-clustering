@@ -77,6 +77,40 @@ Input text: google lowers its ipo price range , san jose , calif . - in a sign t
 Predicted cluster: 1
 ```
 
+We can also use our simple API for clustering.
+
+First, we run the server with,
+
+```buildoutcfg
+$ uvicorn api:app --reload
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [4076975] using statreload
+INFO:     Started server process [4077021]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+```
+
+After running the server, we can now use our API,
+
+```python
+>>> import requests
+>>> text = "brown in line after livingston sack preston , livingston have
+            sacked allan preston as manager . the former hearts and st johnstone
+            defender and his assistant , alan kernaghan , were dismissed after a run of
+            seven defeats left the club"
+>>> r = requests.get(f"http://127.0.0.1:8000/cluster/{text}")
+>>> r.json()
+{'text': 'brown in line after livingston sack preston , livingston have sacked
+allan preston as manager . the former hearts and st johnstone defender and his
+assistant , alan kernaghan , were dismissed after a run of seven defeats left
+the club',
+ 'cluster index': 0}
+```
+
+The API we have in this repository is for demonstration only. When you see the
+implementation, we can improve it by loading the assets only once, before any
+request. You can read more about FastAPI if you are interested in doing so.
+
 ## License
 
 ```
