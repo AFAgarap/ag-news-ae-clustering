@@ -220,6 +220,22 @@ def clustering_accuracy(target: np.ndarray, prediction: np.ndarray) -> float:
     return sum([w[i, j] for i, j in indices]) * 1.0 / prediction.size
 
 
+def display_results(results: str) -> None:
+    """
+    Prints the clustering results with the column (metric) names.
+
+    Parameter
+    ---------
+    results: str
+        The formatted string of clustering results.
+    """
+    print(120 * "_")
+    print("model\t\ttime\tdb-index\tsilhouette\tch-score\t\tnmi\t\tari\t\tacc")
+    print(results)
+    print(120 * "_")
+    return None
+
+
 def export_vectorizer(vectorizer: object, filename: str = "data/vectorizer.pk") -> None:
     """
     Exports the vectorizer object to file.
