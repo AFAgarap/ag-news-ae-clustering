@@ -175,6 +175,22 @@ class Autoencoder(torch.nn.Module):
         torch.save(self.state_dict(), filename)
         print("[SUCCESS] Trained autoencoder model exported.")
 
+    def load_model(self, filename: str = "models/autoencoder.pth") -> None:
+        """
+        Loads the trained autoencoder model.
+
+        Parameter
+        ---------
+        filename: str
+            The path to the trained autoencoder model.
+        """
+        print("[INFO] Loading the trained autoencoder model...")
+        if os.path.isfile(filename):
+            self.load_state_dict(torch.load(filename))
+            print("[SUCCESS] Trained autoencoder ready for use.")
+        else:
+            print("[ERROR] Trained model not found.")
+
 
 class Clustering(object):
     def __init__(
