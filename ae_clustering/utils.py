@@ -120,7 +120,7 @@ def load_dataset(
     )
     texts = list(map(lambda text: " ".join(text), texts))
     vectorizer = TfidfVectorizer(
-        max_features=2000, sublinear_tf=True, max_df=0.5, smooth_idf=True
+        ngram_range=(1, 3), max_features=2000, max_df=0.5, smooth_idf=True
     )
     vectors = vectorizer.fit_transform(texts)
     vectors = vectors.toarray()
@@ -262,6 +262,7 @@ def display_latent_code(
     plt.scatter(latent_code[:, 0], latent_code[:, 1], c=labels, marker="o")
     plt.title(title)
     plt.grid()
+    plt.savefig(fname=f"data/{title}.png", dpi=150)
     plt.show()
 
 

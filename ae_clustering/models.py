@@ -35,19 +35,13 @@ __author__ = "Abien Fred Agarap"
 
 class Autoencoder(torch.nn.Module):
     def __init__(
-        self,
-        model_device: torch.device = torch.device("cpu"),
-        input_shape: int = 784,
-        code_dim: int = 128,
-        learning_rate: float = 1e-4,
+        self, input_shape: int = 784, code_dim: int = 128, learning_rate: float = 1e-4
     ):
         """
         Constructs the autoencoder model.
 
         Parameters
         ----------
-        model_device: torch.device
-            The device to use for model computations.
         input_shape: int
             The dimensionality of the input features.
         code_dim: int
@@ -56,7 +50,9 @@ class Autoencoder(torch.nn.Module):
             The learning rate to use for optimization.
         """
         super().__init__()
-        self.model_device = model_device
+        self.model_device = torch.device(
+            "cuda:0" if torch.cuda.is_available() else "cpu"
+        )
         self.encoder_layers = torch.nn.ModuleList(
             [
                 torch.nn.Linear(in_features=input_shape, out_features=500),
