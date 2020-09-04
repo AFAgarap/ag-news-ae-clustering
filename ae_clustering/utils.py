@@ -191,6 +191,21 @@ def clustering_accuracy(target: np.ndarray, prediction: np.ndarray) -> float:
     return sum([w[i, j] for i, j in indices]) * 1.0 / prediction.size
 
 
+def export_vectorizer(vectorizer: object, filename: str = "data/vectorizer.pk") -> None:
+    """
+    Exports the vectorizer object to file.
+
+    Parameters
+    ----------
+    vectorizer: sklearn.feature_extraction.text.TfidfVectorizer
+        The vectorizer to export.
+    filename: str
+        The filename to use for the vectorizer file.
+    """
+    with open(filename, "wb") as vectorizer_file:
+        pickle.dump(vectorizer, vectorizer_file)
+
+
 def load_vectorizer(filename: str = "data/vectorizer.pk") -> object:
     """
     Loads the exported vectorizer from file.
