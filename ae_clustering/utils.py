@@ -26,6 +26,23 @@ import torch
 __author__ = "Abien Fred Agarap"
 
 
+def set_global_seed(seed: int) -> None:
+    """
+    Sets the pseudorandom seed for reproducibility.
+
+    Parameter
+    ---------
+    seed: int
+        The pseudorandom seed to use.
+    """
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    return None
+
+
 def read_data(corpus_file: str, label_column: int, document_start: int) -> Dict:
     """
     Returns a <key, value> pair of the loaded dataset
