@@ -77,6 +77,7 @@ def main():
         epochs=clustering_epochs,
     )
     clustering.train(features=train_latent_code)
+    clustering.save_model()
     results, _ = clustering.benchmark(
         name="autoencoder", features=test_latent_code, labels=test_labels
     )

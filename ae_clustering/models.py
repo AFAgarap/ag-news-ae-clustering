@@ -15,6 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Implementation of autoencoder and clustering models"""
 import os
+import pickle
 import time
 from typing import Dict, Tuple
 
@@ -305,3 +306,19 @@ class Clustering(object):
             ),
             results,
         )
+
+    def save_model(self, filename: str = "models/kmeans.pk") -> None:
+        """
+        Exports the fitted clustering model.
+
+        Parameter
+        ---------
+        filename: str
+            The path and filename for the exported model.
+        """
+        print("[INFO] Exporting clustering model...")
+        if not os.path.exists(os.path.dirname(filename)):
+            os.mkdir(os.path.dirname(filename))
+        with open(filename, "wb") as model_file:
+            pickle.dump(self.model, model_file)
+        print("[SUCCESS] Clustering model exported.")
