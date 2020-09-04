@@ -157,6 +157,35 @@ def create_dataloader(
     return data_loader
 
 
+def compute_latent_code(model: torch.nn.Module, features: np.ndarray) -> np.ndarray:
+    """
+    Computes the latent code representation for the features
+    using a (presumably) trained autoencoder network.
+
+    Parameters
+    ----------
+    model: torch.nn.Module
+        The autoencoder network.
+    features: np.ndarray
+        The features to represent in latent space.
+
+    Returns
+    -------
+    latent_code: np.ndarray
+        The latent code representation for the features.
+    """
+    features = torch.from_numpy(features)
+    activations = {}
+    for index, layer in enumerate(model.encoder_layers):
+        if index == 0:
+            activations[index] = layer(features)
+        else:
+            activations[index] = layer(activations[index - 1])
+    latent_code = activations[len(activations) - 1]
+    latent_code = latent_code.detach().numpy()
+    return latent_code
+
+
 def clustering_accuracy(target: np.ndarray, prediction: np.ndarray) -> float:
     """
     Returns the clustering accuracy.
