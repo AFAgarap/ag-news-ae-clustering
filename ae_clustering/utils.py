@@ -298,3 +298,22 @@ def load_vectorizer(filename: str = "data/vectorizer.pk") -> object:
     with open(filename, "rb") as vectorizer_file:
         vectorizer = pickle.load(vectorizer_file)
     return vectorizer
+
+
+def load_clustering_model(filename: str = "models/kmeans.pk") -> object:
+    """
+    Loads the fitted k-Means clustering model from file.
+
+    Parameter
+    ---------
+    filename: str
+        The path to the k-means clustering (pickle) model file.
+
+    Returns
+    -------
+    model: sklearn.cluster._kmeans.KMeans
+        The exported k-Means clustering model.
+    """
+    with open(filename, "rb") as kmeans_pickle:
+        model = pickle.load(kmeans_pickle)
+    return model
