@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Implementation of autoencoder and clustering models"""
+import os
 import time
 from typing import Dict, Tuple
 
@@ -161,6 +162,21 @@ class Autoencoder(torch.nn.Module):
             epoch_loss += train_loss.item()
         epoch_loss /= len(data_loader)
         return epoch_loss
+
+    def save_model(self, filename: str = "models/autoencoder.pth") -> None:
+        """
+        Exports the (presumably) trained autoencoder model.
+
+        Parameter
+        ---------
+        filename: str
+            The path and filename for the exported model.
+        """
+        print("[INFO] Exporting trained autoencoder model...")
+        if not os.path.exists(os.path.dirname(filename)):
+            os.mkdir(os.path.dirname(filename))
+        torch.save(self.state_dict(), filename)
+        print("[SUCCESS] Trained autoencoder model exported.")
 
 
 class Clustering(object):
