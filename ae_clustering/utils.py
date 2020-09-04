@@ -17,11 +17,14 @@
 import pickle
 from typing import Dict, Tuple
 
+import matplotlib.pyplot as plt
 import nltk
 import numpy as np
 from scipy.optimize import linear_sum_assignment
+import seaborn as sns
 from sklearn.feature_extraction.text import TfidfVectorizer
 import torch
+from tsnecuda import TSNE
 
 __author__ = "Abien Fred Agarap"
 
@@ -234,6 +237,32 @@ def display_results(results: str) -> None:
     print(results)
     print(120 * "_")
     return None
+
+
+def display_latent_code(
+    latent_code: np.ndarray, labels: np.ndarray, title: str, seed: int
+) -> None:
+    """
+    Plots the computed latent code representation for the features.
+
+    Parameters
+    ----------
+    latent_code: np.ndarray
+        The latent code representation for features.
+    labels: np.ndarray
+        The labels for the dataset features.
+    title: str
+        The plot title to use.
+    seed: int
+        The pseudorandom seed to use for reproducible t-SNE visualization.
+    """
+    tsne_encoder = TSNE(random_seed=seed, perplexity=50, learning_rate=10, n_iter=5000)
+    latent_code = tsne_encoder.fit_transform(latent_code)
+    sns.set_style("darkgrid")
+    plt.scatter(latent_code[:, 0], latent_code[:, 1], c=labels, marker="o")
+    plt.title(title)
+    plt.grid()
+    plt.show()
 
 
 def export_vectorizer(vectorizer: object, filename: str = "data/vectorizer.pk") -> None:
