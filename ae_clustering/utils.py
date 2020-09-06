@@ -319,6 +319,28 @@ def load_clustering_model(filename: str = "models/kmeans.pk") -> object:
     return model
 
 
+def vectorize_text(text: str, vectorizer: object) -> np.ndarray:
+    """
+    Returns the TF-IDF vector representation of a text.
+
+    Parameters
+    ----------
+    text: str
+        The input text to vectorize.
+    vectorizer: sklearn.feature_extraction.text.TfidfVectorizer
+        The vectorizer to use for the input text.
+
+    Returns
+    -------
+    vector: np.ndarray
+        The vector representation of the input text.
+    """
+    vector = vectorizer.transform([text])
+    vector = vector.toarray()
+    vector = vector.astype(np.float32)
+    return vector
+
+
 def cluster_text(
     text: str, autoencoder_model: object, kmeans_model: object, vectorizer: object
 ) -> np.ndarray:
