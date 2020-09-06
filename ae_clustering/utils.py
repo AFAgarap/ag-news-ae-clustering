@@ -342,32 +342,27 @@ def vectorize_text(text: str, vectorizer: object) -> np.ndarray:
 
 
 def cluster_text(
-    text: str, autoencoder_model: object, kmeans_model: object, vectorizer: object
+    vector: np.ndarray, autoencoder_model: object, kmeans_model: object
 ) -> np.ndarray:
     """
     Returns the cluster number for the input text.
 
     Parameters
     ----------
-    text: str
-        The input text to cluster.
+    vector: np.ndarray
+        The text vector to cluster.
     autoencoder_model: torch.nn.Module
         The trained autoencoder to use for computing
         the latent code representation
         of the input text.
     kmeans_model: sklearn.cluster._kmeans.KMeans
         The fitted k-Means clustering model.
-    vectorizer: sklearn.feature_extraction.text.TfidfVectorizer
-        The vectorizer to use for the input text.
 
     Returns
     -------
     cluster_index: np.ndarray
         The cluster index of the input text.
     """
-    vector = vectorizer.transform([text])
-    vector = vector.toarray()
-    vector = vector.astype(np.float32)
     latent_code = compute_latent_code(model=autoencoder_model, features=vector)
     cluster_index = kmeans_model.predict(latent_code)
     return cluster_index
