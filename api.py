@@ -17,7 +17,12 @@
 from fastapi import FastAPI
 
 from ae_clustering.models import Autoencoder
-from ae_clustering.utils import cluster_text, load_clustering_model, load_vectorizer
+from ae_clustering.utils import (
+    cluster_text,
+    load_clustering_model,
+    load_vectorizer,
+    vectorize_text,
+)
 
 __author__ = "Abien Fred Agarap"
 
@@ -28,13 +33,11 @@ app = FastAPI()
 @app.get("/cluster/{text}")
 def cluster(text: str):
     vectorizer = load_vectorizer("data/vectorizer.pk")
+    vector = vectorize_text(text=text, vectorizer=vectorizer)
     autoencoder = Autoencoder(input_shape=2000, code_dim=30)
     autoencoder.load_model("models/autoencoder.pth")
     kmeans = load_clustering_model("models/kmeans.pk")
     cluster_index = cluster_text(
-        text=text,
-        autoencoder_model=autoencoder,
-        kmeans_model=kmeans,
-        vectorizer=vectorizer,
+        vector=vector, autoencoder_model=autoencoder, kmeans_model=kmeans
     )
     return {"text": text, "cluster index": cluster_index.item()}
