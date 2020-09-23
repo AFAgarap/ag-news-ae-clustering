@@ -1,7 +1,6 @@
 # AG News Clustering with Autoencoder
 
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-![ag-news-ae-clustering](https://github.com/AFAgarap/ag-news-ae-clustering/workflows/ag-news-ae-clustering/badge.svg?branch=master)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-377/)
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-382/)
 
@@ -40,7 +39,7 @@ Next, train the autoencoder model, and cluster the AG News
 dataset by running the `train.py` module.
 
 ```buildoutcfg
-$ python train.py
+$ python -m modules.train
 ```
 
 The `train.py` exports the trained autoencoder model, the fitted clustering
@@ -55,22 +54,22 @@ marks are needed since the module is using `sys.argv` for getting the command
 arguments.
 
 ```buildoutcfg
-$ python run.py "brown in line after livingston sack preston , livingston have sacked allan preston as manager . the former hearts and st johnstone defender and his assistant , alan kernaghan , were dismissed after a run of seven defeats left the club"
+$ python -m modules.run "brown in line after livingston sack preston , livingston have sacked allan preston as manager . the former hearts and st johnstone defender and his assistant , alan kernaghan , were dismissed after a run of seven defeats left the club"
 [INFO] Loading the trained autoencoder model...
 [SUCCESS] Trained autoencoder ready for use.
 Input text: brown in line after livingston sack preston , livingston have sacked allan preston as manager . the former hearts and st johnstone defender and his assistant , alan kernaghan , were dismissed after a run of seven defeats left the club
 Predicted cluster: 0
-$ python run.py "lockheed profit jumps on it , jet demand , &lt p&gt \&lt /p&gt &lt p&gt new york ( reuters ) - no . 1 u . s . defense contractor lockheed\martin corp . &lt lmt . n&gt reported a 41 percent rise in quarterly\profit on tuesday , beating wall street forecasts , as demand\soared for its combat aircraft and information technology\services . &lt /p&gt "
+$ python -m modules.run "lockheed profit jumps on it , jet demand , &lt p&gt \&lt /p&gt &lt p&gt new york ( reuters ) - no . 1 u . s . defense contractor lockheed\martin corp . &lt lmt . n&gt reported a 41 percent rise in quarterly\profit on tuesday , beating wall street forecasts , as demand\soared for its combat aircraft and information technology\services . &lt /p&gt "
 [INFO] Loading the trained autoencoder model...
 [SUCCESS] Trained autoencoder ready for use.
 Input text: lockheed profit jumps on it , jet demand , &lt p&gt \&lt /p&gt &lt p&gt new york ( reuters ) - no . 1 u . s . defense contractor lockheed\martin corp . &lt lmt . n&gt reported a 41 percent rise in quarterly\profit on tuesday , beating wall street forecasts , as demand\soared for its combat aircraft and information technology\services . &lt /p&gt
 Predicted cluster: 3
-$ python run.py "japan narrowly escapes recession , new figures show japan ' s economy is barely staying out of recession with annual growth of just 0 . 2 in the third quarter . "
+$ python -m modules.run "japan narrowly escapes recession , new figures show japan ' s economy is barely staying out of recession with annual growth of just 0 . 2 in the third quarter . "
 [INFO] Loading the trained autoencoder model...
 [SUCCESS] Trained autoencoder ready for use.
 Input text: japan narrowly escapes recession , new figures show japan ' s economy is barely staying out of recession with annual growth of just 0 . 2 in the third quarter .
 Predicted cluster: 3
-$ python run.py "google lowers its ipo price range , san jose , calif . - in a sign that google inc . ' s initial public offering isn ' t as popular as expected , the company lowered its estimated price range to between \$85 and \$95 per share , down from the earlier prediction of \$108 and \$135 per share . . . "
+$ python -m modules.run "google lowers its ipo price range , san jose , calif . - in a sign that google inc . ' s initial public offering isn ' t as popular as expected , the company lowered its estimated price range to between \$85 and \$95 per share , down from the earlier prediction of \$108 and \$135 per share . . . "
 [INFO] Loading the trained autoencoder model...
 [SUCCESS] Trained autoencoder ready for use.
 Input text: google lowers its ipo price range , san jose , calif . - in a sign that google inc . ' s initial public offering isn ' t as popular as expected , the company lowered its estimated price range to between $85 and $95 per share , down from the earlier prediction of $108 and $135 per share . . .
@@ -82,6 +81,7 @@ We can also use our simple API for clustering.
 First, we run the server with,
 
 ```buildoutcfg
+$ cd modules
 $ uvicorn api:app --reload
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 INFO:     Started reloader process [4076975] using statreload
