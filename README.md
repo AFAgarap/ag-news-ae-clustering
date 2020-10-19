@@ -4,6 +4,8 @@
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-377/)
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-382/)
 
+*A text clustering example written for CSC715M Natural Language Processing at De La Salle University (Term 3, A.Y. 2019-2020)*
+
 ## Overview
 
 An autoencoder is a neural network that aims to reconstruct a given input. It
