@@ -27,6 +27,11 @@ from ae_clustering.utils import (
 __author__ = "Abien Fred Agarap"
 
 
+vectorizer = load_vectorizer("data/vectorizer.pk")
+autoencoder = Autoencoder(input_shape=2000, code_dim=30)
+autoencoder.load_model("models/autoencoder.pth")
+kmeans = load_clustering_model("models/kmeans.pk")
+
 app = FastAPI()
 
 
@@ -34,9 +39,6 @@ app = FastAPI()
 def cluster(text: str):
     vectorizer = load_vectorizer("data/vectorizer.pk")
     vector = vectorize_text(text=text, vectorizer=vectorizer)
-    autoencoder = Autoencoder(input_shape=2000, code_dim=30)
-    autoencoder.load_model("models/autoencoder.pth")
-    kmeans = load_clustering_model("models/kmeans.pk")
     cluster_index = cluster_text(
         vector=vector, autoencoder_model=autoencoder, kmeans_model=kmeans
     )
