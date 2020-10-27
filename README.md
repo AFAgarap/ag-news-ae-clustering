@@ -4,7 +4,7 @@
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-377/)
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-382/)
 
-*A text clustering example written for CSC715M Natural Language Processing at De La Salle University (Term 3, A.Y. 2019-2020)*
+_A text clustering example written for CSC715M Natural Language Processing at De La Salle University (Term 3, A.Y. 2019-2020)_
 
 ## Overview
 
@@ -83,8 +83,7 @@ We can also use our simple API for clustering.
 First, we run the server with,
 
 ```buildoutcfg
-$ cd modules
-$ uvicorn api:app --reload
+$ uvicorn modules.api:app --reload
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
 INFO:     Started reloader process [4076975] using statreload
 INFO:     Started server process [4077021]
