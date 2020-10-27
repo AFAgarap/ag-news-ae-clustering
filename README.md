@@ -108,10 +108,6 @@ the club',
  'cluster index': 0}
 ```
 
-The API we have in this repository is for demonstration only. When you see the
-implementation, we can improve it by loading the assets only once, before any
-request. You can read more about FastAPI if you are interested in doing so.
-
 ## License
 
 ```
