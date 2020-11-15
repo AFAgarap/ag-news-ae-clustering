@@ -15,6 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Utility functions module"""
 import pickle
+import string
 from typing import Dict, Tuple
 
 import matplotlib.pyplot as plt
@@ -105,7 +106,12 @@ def load_dataset(
     )
     texts = dataset.keys()
     labels = dataset.values()
-    texts = list(map(lambda text: text.replace("[^a-zA-Z#]", ""), texts))
+    texts = list(
+        map(
+            lambda text: text.translate(str.maketrans("", "", string.punctuation)),
+            texts,
+        )
+    )
     texts = list(
         map(
             lambda text: " ".join([word for word in text.split() if len(word) > 3]),
