@@ -209,6 +209,33 @@ class Autoencoder(torch.nn.Module):
         else:
             print("[ERROR] Trained model not found.")
 
+    def compute_latent_code(self, features: torch.Tensor) -> np.ndarray:
+        """
+        Computes the latent code representation for the input features.
+
+        Parameter
+        ---------
+        features: torch.Tensor
+            The input features whose latent code representation
+            shall be computed.
+
+        Returns
+        -------
+        latent_code: np.ndarray
+            The latent code representation for the input features.
+        """
+        if not isinstance(features, torch.Tensor):
+            features = torch.from_numpy(features)
+        activations = {}
+        for index, layer in enumerate(self.encoder_layers):
+            if index == 0:
+                activations[index] = layer(features)
+            else:
+                activations[index] = layer(activations.get(index - 1))
+        latent_code = activations.get(len(activations) - 1)
+        latent_code = latent_code.detach().numpy()
+        return latent_code
+
 
 class Clustering(object):
     def __init__(
