@@ -65,8 +65,8 @@ def main():
     model = model.cpu()
 
     print("[INFO] Computing latent code...")
-    train_latent_code = compute_latent_code(model=model, features=train_vectors)
-    test_latent_code = compute_latent_code(model=model, features=test_vectors)
+    train_latent_code = model.compute_latent_code(features=train_vectors)
+    test_latent_code = model.compute_latent_code(features=test_vectors)
 
     print("[INFO] Clustering...")
     clustering = Clustering(
