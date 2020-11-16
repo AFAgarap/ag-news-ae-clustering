@@ -224,6 +224,8 @@ class Autoencoder(torch.nn.Module):
         latent_code: np.ndarray
             The latent code representation for the input features.
         """
+        if not isinstance(features, torch.Tensor):
+            features = torch.from_numpy(features)
         activations = {}
         for index, layer in enumerate(self.encoder_layers):
             if index == 0:
