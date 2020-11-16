@@ -243,7 +243,6 @@ class Clustering(object):
         num_clusters: int,
         n_init: int = 10,
         epochs: int = 300,
-        cores: int = 1,
         seed: int = None,
         tol: float = 1e-4,
         initialization: str = "random",
@@ -261,8 +260,6 @@ class Clustering(object):
         epochs: int, optional, default: 300
             The maximum number of iterations
             k-Means will be run.
-        cores: int, optional, default: 1
-            The number of jobs to use for computing.
         seed: int, optional, default: None
             The random number generator seed.
             Set for reproducibility.
@@ -276,7 +273,6 @@ class Clustering(object):
             n_clusters=num_clusters,
             n_init=n_init,
             max_iter=epochs,
-            n_jobs=cores,
             random_state=seed,
             tol=tol,
         )
