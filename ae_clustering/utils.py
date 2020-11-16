@@ -369,6 +369,6 @@ def cluster_text(
     cluster_index: np.ndarray
         The cluster index of the input text.
     """
-    latent_code = compute_latent_code(model=autoencoder_model, features=vector)
+    latent_code = autoencoder_model.compute_latent_code(features=vector)
     cluster_index = kmeans_model.predict(latent_code)
     return cluster_index
