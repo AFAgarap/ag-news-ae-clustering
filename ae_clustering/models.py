@@ -209,6 +209,17 @@ class Autoencoder(torch.nn.Module):
         else:
             print("[ERROR] Trained model not found.")
 
+    def compute_latent_code(self, features: torch.Tensor) -> torch.Tensor:
+        activations = {}
+        for index, layer in enumerate(self.encoder_layers):
+            if index == 0:
+                activations[index] = layer(features)
+            else:
+                activations[index] = layer(activations.get(index - 1))
+        latent_code = activations.get(len(activations) - 1)
+        latent_code = latent_code.detach().numpy()
+        return latent_code
+
 
 class Clustering(object):
     def __init__(
