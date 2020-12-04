@@ -27,6 +27,7 @@ isolate the dependencies by the modules.
 
 ```buildoutcfg
 $ virtualenv venv --python=python3  # we use python 3
+$ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
