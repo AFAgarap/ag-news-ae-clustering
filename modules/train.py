@@ -14,14 +14,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Module for training autoencoder and clustering"""
+from pt_datasets import load_dataset, create_dataloader
+
 from ae_clustering.models import Autoencoder, Clustering
 from ae_clustering.utils import (
     compute_latent_code,
-    create_dataloader,
     display_latent_code,
     display_results,
     export_vectorizer,
-    load_dataset,
     set_global_seed,
 )
 
@@ -39,6 +39,7 @@ def main():
     set_global_seed(42)
 
     print("[INFO] Loading datasets...")
+    train_data, test_data = load_dataset("ag_news")
     (train_vectors, train_labels, vectorizer) = load_dataset("data/ag_news.train")
     (test_vectors, test_labels, _) = load_dataset("data/ag_news.test")
 
