@@ -44,8 +44,6 @@ def main():
     train_labels = train_data.tensors[1]
     test_vectors = test_data.tensors[0]
     test_labels = test_data.tensors[1]
-    (train_vectors, train_labels, vectorizer) = load_dataset("data/ag_news.train")
-    (test_vectors, test_labels, _) = load_dataset("data/ag_news.test")
 
     print("[INFO] Exporting vectorizer...")
     export_vectorizer(vectorizer=vectorizer, filename="data/vectorizer.pk")
