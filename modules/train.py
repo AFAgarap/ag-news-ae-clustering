@@ -39,7 +39,7 @@ def main():
     set_global_seed(42)
 
     print("[INFO] Loading datasets...")
-    train_data, test_data = load_dataset("ag_news", return_vectorizer=True)
+    train_data, test_data, vectorizer = load_dataset("ag_news", return_vectorizer=True)
     train_vectors = train_data.tensors[0]
     train_labels = train_data.tensors[1]
     test_vectors = test_data.tensors[0]
