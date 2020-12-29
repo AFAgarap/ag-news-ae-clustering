@@ -41,7 +41,9 @@ def main():
     print("[INFO] Loading datasets...")
     train_data, test_data = load_dataset("ag_news", return_vectorizer=True)
     train_vectors = train_data.tensors[0]
+    train_labels = train_data.tensors[1]
     test_vectors = test_data.tensors[0]
+    test_labels = test_data.tensors[1]
     (train_vectors, train_labels, vectorizer) = load_dataset("data/ag_news.train")
     (test_vectors, test_labels, _) = load_dataset("data/ag_news.test")
 
