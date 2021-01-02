@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Module for training autoencoder and clustering"""
-from pt_datasets import load_dataset, create_dataloader
+from pt_datasets import load_dataset, create_dataloader, create_dataset
 
 from ae_clustering.models import Autoencoder, Clustering
 from ae_clustering.utils import (
@@ -45,13 +45,12 @@ def main():
     test_vectors = test_data.tensors[0]
     test_labels = test_data.tensors[1]
 
+    train_dataset = create_dataset(train_vectors, train_labels)
     print("[INFO] Exporting vectorizer...")
     export_vectorizer(vectorizer=vectorizer, filename="data/vectorizer.pk")
 
     print("[INFO] Creating PyTorch data loader...")
-    data_loader = create_dataloader(
-        features=train_vectors, labels=train_labels, batch_size=batch_size
-    )
+    data_loader = create_dataloader(train_dataset, batch_size=batch_size)
 
     print("[INFO] Instantiating Autoencoder...")
     model = Autoencoder(
