@@ -215,6 +215,10 @@ def clustering_accuracy(target: np.ndarray, prediction: np.ndarray) -> float:
     float
         The clustering accuracy.
     """
+    if isinstance(target, torch.Tensor):
+        target = target.numpy()
+    if isinstance(prediction, torch.Tensor):
+        prediction = prediction.numpy()
     target = target.astype(np.int64)
     assert target.size == prediction.size
     D = max(prediction.max(), target.max()) + 1
