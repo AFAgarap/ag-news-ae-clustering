@@ -74,7 +74,6 @@ def main():
     clustering = Clustering(
         num_clusters=num_clusters,
         seed=seed,
-        cores=-1,
         initialization="k-means++",
         epochs=clustering_epochs,
     )
