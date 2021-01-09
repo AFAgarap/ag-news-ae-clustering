@@ -31,13 +31,6 @@ $ source venv/bin/activate
 $ pip install -r requirements.txt
 ```
 
-Then, download the AG News dataset, the benchmark dataset we will use for
-clustering.
-
-```buildoutcfg
-$ bash setup/download_ag_news
-```
-
 Next, train the autoencoder model, and cluster the AG News
 dataset by running the `train.py` module.
 
