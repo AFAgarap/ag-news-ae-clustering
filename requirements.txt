@@ -1,4 +1,4 @@
-pt-datasets==0.7.4
+pt-datasets==0.8.0
 matplotlib==3.3.0
 seaborn==0.10.1
 nltk==3.5
