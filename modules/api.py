@@ -48,4 +48,4 @@ def cluster(text: str):
     cluster_index = cluster_text(
         vector=vector, autoencoder_model=autoencoder, kmeans_model=kmeans
     )
-    return {"text": text, "cluster index": cluster_index.item()}
+    return ClusterResponse(text=text, cluster_index=cluster_index)
