@@ -40,10 +40,10 @@ def main():
 
     print("[INFO] Loading datasets...")
     train_data, test_data, vectorizer = load_dataset("ag_news", return_vectorizer=True)
-    train_vectors = train_data.tensors[0]
-    train_labels = train_data.tensors[1]
-    test_vectors = test_data.tensors[0]
-    test_labels = test_data.tensors[1]
+    train_vectors = train_data.data
+    test_vectors = test_data.data
+    train_labels = train_data.targets
+    test_labels = test_data.targets
 
     train_dataset = create_dataset(train_vectors, train_labels)
     print("[INFO] Exporting vectorizer...")
