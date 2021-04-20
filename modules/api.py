@@ -41,7 +41,7 @@ class ClusterResponse(BaseModel):
     cluster_index: int
 
 
-@app.get("/cluster/{text}", status_code=200, response_model=ClusterResponse)
+@app.get("/api/v1/cluster/{text}", status_code=200, response_model=ClusterResponse)
 def cluster(text: str):
     vectorizer = load_vectorizer("data/vectorizer.pk")
     vector = vectorize_text(text=text, vectorizer=vectorizer)
