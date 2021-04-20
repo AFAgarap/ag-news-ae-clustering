@@ -15,6 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """Web API for clustering AG News"""
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 from ae_clustering.models import Autoencoder
 from ae_clustering.utils import (
@@ -35,11 +36,16 @@ kmeans = load_clustering_model("models/kmeans.pk")
 app = FastAPI()
 
 
-@app.get("/cluster/{text}")
+class ClusterResponse(BaseModel):
+    text: str
+    cluster_index: int
+
+
+@app.get("/cluster/{text}", status_code=200, response_model=ClusterResponse)
 def cluster(text: str):
     vectorizer = load_vectorizer("data/vectorizer.pk")
     vector = vectorize_text(text=text, vectorizer=vectorizer)
     cluster_index = cluster_text(
         vector=vector, autoencoder_model=autoencoder, kmeans_model=kmeans
     )
-    return {"text": text, "cluster index": cluster_index.item()}
+    return ClusterResponse(text=text, cluster_index=cluster_index)
