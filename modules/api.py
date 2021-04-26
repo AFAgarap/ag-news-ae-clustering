@@ -36,13 +36,18 @@ kmeans = load_clustering_model("models/kmeans.pk")
 app = FastAPI()
 
 
+class ClusterRequest(BaseModel):
+    text: str
+
+
 class ClusterResponse(BaseModel):
     text: str
     cluster_index: int
 
 
-@app.get("/api/v1/cluster/{text}", status_code=200, response_model=ClusterResponse)
-def cluster(text: str):
+@app.post("/api/v1/cluster", status_code=200, response_model=ClusterResponse)
+def cluster(request: ClusterRequest):
+    text = request.text
     vectorizer = load_vectorizer("data/vectorizer.pk")
     vector = vectorize_text(text=text, vectorizer=vectorizer)
     cluster_index = cluster_text(
