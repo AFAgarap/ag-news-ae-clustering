@@ -93,7 +93,7 @@ After running the server, we can now use our API,
             sacked allan preston as manager . the former hearts and st johnstone
             defender and his assistant , alan kernaghan , were dismissed after a run of
             seven defeats left the club"
->>> r = requests.get(f"http://127.0.0.1:8000/api/v1/cluster/{text}")
+>>> r = requests.post("http://127.0.0.1:8000/api/v1/cluster", json={"text": text})
 >>> r.json()
 {'text': 'brown in line after livingston sack preston , livingston have sacked
 allan preston as manager . the former hearts and st johnstone defender and his
