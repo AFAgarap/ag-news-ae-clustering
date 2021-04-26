@@ -24,6 +24,8 @@ from ae_clustering.utils import (
     load_vectorizer,
     vectorize_text,
 )
+from src.schemas import ClusterRequest, ClusterResponse
+
 
 __author__ = "Abien Fred Agarap"
 
@@ -34,15 +36,6 @@ autoencoder.load_model("models/autoencoder.pth")
 kmeans = load_clustering_model("models/kmeans.pk")
 
 app = FastAPI()
-
-
-class ClusterRequest(BaseModel):
-    text: str
-
-
-class ClusterResponse(BaseModel):
-    text: str
-    cluster_index: int
 
 
 @app.post("/api/v1/cluster", status_code=200, response_model=ClusterResponse)
