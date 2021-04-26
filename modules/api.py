@@ -36,6 +36,10 @@ kmeans = load_clustering_model("models/kmeans.pk")
 app = FastAPI()
 
 
+class ClusterRequest(BaseModel):
+    text: str
+
+
 class ClusterResponse(BaseModel):
     text: str
     cluster_index: int
